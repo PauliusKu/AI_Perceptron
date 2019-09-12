@@ -3,4 +3,4 @@ project(AI_Perceptron)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(AI_Perceptron main.cpp perceptron.cpp perceptron.h)
+add_executable(AI_Perceptron main.cpp perceptron.cpp perceptron.h testPerceptron.cpp testPerceptron.h activationFunctions.cpp activationFunctions.h)
