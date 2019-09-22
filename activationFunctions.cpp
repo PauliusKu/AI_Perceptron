@@ -4,7 +4,7 @@
 
 #include "activationFunctions.h"
 
-int unitStep(double x){
-    if(x < 0) return 0;
-    else return 1;
+bool unitStep(double a){
+    if(a < 0) return false;
+    return true;
 }

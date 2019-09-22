@@ -7,7 +7,6 @@
 
 #include "perceptron.h"
 #include "activationFunctions.h"
-#include "dataStructs.h"
 
 void testPerceptron();
 

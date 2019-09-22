@@ -3,64 +3,60 @@
 //
 
 #include <vector>
-#include "testPerceptron.h"
+#include <iostream>
+#include "perceptron.h"
+#include "activationFunctions.h"
+#include "dataStructure.h"
+#include "randomNum.h"
 
-void prepareTestData(std::vector<std::vector<double>> &, std::vector<bool> &);
-void prepareInputData(std::vector<std::vector<double>> &);
-void prepareConditions(std::vector<bool> &);
-void generateSomeRandWeights(std::vector<double> &);
-bool meetAllConds(std::vector<std::vector<double>>&, std::vector<double>&, std::vector<bool>&);
-bool isInputValid(std::vector<std::vector<double>> &inputData, std::vector<bool> &conditions);
+void prepareTestData(std::vector<inpTestData>& inputData);
+void addSomeRandWeights(std::vector<inpTestData>& inputData);
+bool meetAllConds(std::vector<inpTestData>& inputData);
+bool isSetOk(bool, bool);
 
 void testPerceptron(){
-    std::vector<std::vector<double>> inputData {};
-    std::vector<bool> conditions {};
-    std::vector<double> weights {};
+    std::vector<inpTestData> inputData {};
 
-    prepareTestData(inputData, conditions);
+    prepareTestData(inputData);
 
     while(true){
-        generateSomeRandWeights(weights);
+        addSomeRandWeights(inputData);
 
-        if (meetAllConds(inputData, weights, conditions))
+        if (meetAllConds(inputData))
             break;
     }
+
+
+
 }
 
-void prepareTestData(std::vector<std::vector<double>>& inputData, std::vector<bool>& conditions){
-    prepareInputData(inputData);
-    prepareConditions(conditions);
-    isInputValid(inputData, conditions);
+void prepareTestData(std::vector<inpTestData>& inputData){
+    inputData.push_back({{{1, {}}, {-0.2, {}}, {0.5, {}}},false});
+    inputData.push_back({{{1, {}}, {0.2, {}}, {-0.5, {}}},false});
+    inputData.push_back({{{1, {}}, {0.8, {}}, {-0.8, {}}},true});
+    inputData.push_back({{{1, {}}, {0.8, {}}, {0.8, {}}},true});
 }
 
-void prepareInputData(std::vector<std::vector<double>>& inputData){
-    inputData.push_back({-0.2, 0.5});
-    inputData.push_back({0.2, 0.5});
-    inputData.push_back({-0.2, 0.5});
-    inputData.push_back({-0.2, 0.5});
+void addSomeRandWeights(std::vector<inpTestData>& inputData){
+    for (auto& value: inputData){
+        for (auto& innValue: value.inputPerc) {
+            innValue.weight = randomNum(0.0, 1.0);
+            std::cout << "rand" << innValue.weight << std::endl;
+        }
+    }
+
 }
 
-void prepareConditions(std::vector<bool>& conditions){
-    conditions.push_back(false);
-    conditions.push_back(false);
-    conditions.push_back(true);
-    conditions.push_back(true);
+bool meetAllConds(std::vector<inpTestData>& inputData){
+    std::cout << "startItr" << std::endl;
+    for(auto const& value: inputData){
+        std::cout << perceptron(value.inputPerc) << " " << value.condition << std::endl;
+        if(!isSetOk(unitStep(perceptron(value.inputPerc)), value.condition))
+            return false;
+    }
+    return true;
 }
 
-bool isInputValid(std::vector<std::vector<double>> &inputData, std::vector<bool> &conditions){
-    if (inputData.size() == conditions.size())
-        return true;
-}
-
-void generateSomeRandWeights(std::vector<double> & weights){
-    weights.push_back(1);
-    weights.push_back(2);
-    weights.push_back(3);
-    weights.push_back(4);
-}
-
-bool meetAllConds(std::vector<std::vector<double>>&, std::vector<double>&, std::vector<bool>&){
-//    for(auto const& value: a){
-//
-//    }
+bool isSetOk(const bool input, const bool condition){
+    return input == condition;
 }

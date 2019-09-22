@@ -5,6 +5,6 @@
 #ifndef AI_PERCEPTRON_ACTIVATIONFUNCTIONS_H
 #define AI_PERCEPTRON_ACTIVATIONFUNCTIONS_H
 
-int unitStep(double x);
+bool unitStep(double);
 
 #endif //AI_PERCEPTRON_ACTIVATIONFUNCTIONS_H
