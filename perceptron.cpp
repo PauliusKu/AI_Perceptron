@@ -3,12 +3,13 @@
 //
 
 #include "perceptron.h"
+#include <iostream>
 
 double perceptron(const std::vector<inpPerceptronData>& inputData){
     double sum = 0;
 
     for(auto const& value: inputData) {
-        sum += value.input * value.weight;
+        sum = sum + value.input * value.weight;
     }
     return sum;
 }
