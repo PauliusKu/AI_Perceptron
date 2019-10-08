@@ -3,13 +3,24 @@
 //
 
 #include "perceptron.h"
-#include <iostream>
 
-double perceptron(const std::vector<inpPerceptronData>& inputData){
+double perceptron(const std::vector<InpPerceptronData>& input, const std::vector<Weight>& weight){
+    double sum = 0;
+
+    if (input.size() != weight.size())
+        return sum;
+
+    for (unsigned long i = 0; i < input.size(); i++){
+        sum += input[i].input * weight[i].weight;
+    }
+    return sum;
+}
+
+double perceptron(const std::vector<InpPerceptronData>& inputData){
     double sum = 0;
 
     for(auto const& value: inputData) {
-        sum = sum + value.input * value.weight;
+        sum += value.input * value.Weight;
     }
     return sum;
 }
