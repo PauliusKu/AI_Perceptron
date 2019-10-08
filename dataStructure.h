@@ -5,13 +5,17 @@
 #ifndef AI_PERCEPTRON_DATASTRUCTURE_H
 #define AI_PERCEPTRON_DATASTRUCTURE_H
 
-struct inpPerceptronData{
-    double input;
+struct Weight{
     double weight;
 };
 
-struct inpTestData{
-    std::vector<inpPerceptronData> inputPerc;
+struct InpPerceptronData{
+    double input;
+    double Weight;
+};
+
+struct InpTestData{
+    std::vector<InpPerceptronData> inputPerc;
     bool condition;
 };
 
